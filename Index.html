@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>David Kithi — Full Stack Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --navy:#1a3a6b;
+      --blue:#2563eb;
+      --blue2:#3b82f6;
+      --bg:#f8faff;
+      --card:#ffffff;
+      --border:#e2e8f4;
+      --text:#0f1e3a;
+      --muted:#64748b;
+      --warm:#f5c040;
+      --warm2:#e8a020;
+      --inter:'Inter',sans-serif;
+      --display:'Playfair Display',serif;
+      --mono:'DM Mono',monospace;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);font-family:var(--inter);color:var(--text);}
+
+    /* ── NAV ── */
+    nav{
+      position:sticky;top:0;z-index:100;
+      background:#fff;border-bottom:1px solid var(--border);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 48px;height:64px;
+    }
+    .nav-logo{font-family:var(--display);font-size:22px;font-weight:700;color:var(--blue);}
+    .nav-links{display:flex;gap:32px;}
+    .nav-links a{
+      font-size:14px;color:var(--muted);text-decoration:none;
+      font-weight:500;transition:color 0.2s;
+    }
+    .nav-links a:hover{color:var(--blue);}
+
+    /* ── HERO ── */
+    .hero{
+      position:relative;width:100%;height:600px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      overflow:hidden;
+      background:linear-gradient(160deg,#0d1b3e 0%,#1a2f5a 40%,#0f2040 100%);
+    }
+
+    /* Lamp parts */
+    .lp-base{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:90px;height:13px;background:#c8a060;border-radius:7px;}
+    .lp-pole{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);width:5px;height:230px;background:linear-gradient(to top,#b89050,#d4b070);}
+    .lp-arm{position:absolute;bottom:238px;left:50%;width:120px;height:5px;background:#d4b070;transform-origin:left center;transform:rotate(-28deg);}
+    .lp-neck{position:absolute;bottom:290px;left:calc(50% + 96px);width:5px;height:32px;background:#d4b070;transform:rotate(18deg);transform-origin:top center;}
+    .lp-shade{
+      position:absolute;bottom:282px;left:calc(50% + 84px);
+      transform:translateX(-50%);width:80px;height:48px;
+      background:linear-gradient(160deg,#d4a050 0%,#b87830 100%);
+      clip-path:polygon(8% 0%,92% 0%,100% 100%,0% 100%);
+      border-top:3px solid #e4c070;
+    }
+    .lp-bulb{
+      position:absolute;bottom:274px;left:calc(50% + 84px);
+      transform:translateX(-50%);width:13px;height:13px;border-radius:50%;
+      background:#fff8c0;
+      box-shadow:0 0 22px 9px rgba(255,230,80,0.85),0 0 70px 28px rgba(255,200,50,0.3);
+    }
+    .lp-beam{
+      position:absolute;bottom:236px;left:calc(50% + 22px);
+      width:0;height:0;
+      border-left:220px solid transparent;
+      border-right:26px solid transparent;
+      border-top:280px solid rgba(255,210,60,0.07);
+      filter:blur(16px);pointer-events:none;
+      transform:rotate(-8deg);transform-origin:top right;
+    }
+    .lp-glow{
+      position:absolute;bottom:0;left:calc(50% - 90px);
+      width:440px;height:110px;
+      background:radial-gradient(ellipse at 44% top,rgba(255,210,60,0.2) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,25,60,0.25) 0%,rgba(10,25,60,0.55) 100%);}
+
+    .hero-content{position:relative;z-index:2;text-align:center;}
+    .hero-hi{font-size:18px;color:rgba(255,255,255,0.8);margin-bottom:12px;}
+    .hero-name{font-family:var(--display);font-size:64px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:18px;}
+    .hero-sub{font-size:17px;color:rgba(255,255,255,0.72);margin-bottom:36px;}
+    .hero-btn{
+      display:inline-block;background:var(--blue);color:#fff;
+      font-size:15px;font-weight:600;padding:15px 40px;
+      border-radius:50px;border:none;cursor:pointer;
+      font-family:var(--inter);text-decoration:none;
+      transition:background 0.2s,transform 0.15s;
+    }
+    .hero-btn:hover{background:#1d4fd8;transform:translateY(-2px);}
+
+    /* ── SECTIONS ── */
+    .section{padding:72px 48px;max-width:960px;margin:0 auto;}
+    .sec-title{font-family:var(--display);font-size:32px;font-weight:700;color:var(--text);margin-bottom:8px;}
+    .sec-line{width:52px;height:3px;background:var(--blue);border-radius:2px;margin-bottom:36px;}
+
+    /* ── ABOUT ── */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+    .about-text{font-size:15px;line-height:1.95;color:var(--muted);}
+    .about-text strong{color:var(--text);}
+    .about-badges{display:flex;flex-direction:column;gap:12px;margin-top:24px;}
+    .badge{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);}
+    .badge-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+    .about-cards{display:flex;flex-direction:column;gap:14px;}
+    .about-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;}
+    .about-card .big{font-family:var(--display);font-size:52px;font-weight:900;color:var(--blue);line-height:1;}
+    .about-card .lbl{font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:1px;text-transform:uppercase;}
+
+    /* ── SKILLS ── */
+    .skills-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+    .skill-chip{
+      background:var(--card);border:1.5px solid var(--border);border-radius:8px;
+      padding:13px 10px;font-size:13px;font-weight:500;color:var(--muted);
+      text-align:center;transition:all 0.2s;cursor:default;
+    }
+    .skill-chip:hover{border-color:var(--blue2);color:var(--blue);background:#eff6ff;}
+
+    /* ── PROJECTS ── */
+    .proj-grid{display:grid;gap:18px;}
+    .proj-card{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      padding:26px 28px;transition:box-shadow 0.2s,border-color 0.2s;
+      position:relative;overflow:hidden;
+    }
+    .proj-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:transparent;transition:background 0.2s;}
+    .proj-card:hover{box-shadow:0 6px 28px rgba(37,99,235,0.1);border-color:#bfdbfe;}
+    .proj-card:hover::after{background:var(--blue);}
+    .proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+    .proj-name{font-family:var(--display);font-size:20px;font-weight:700;color:var(--text);}
+    .proj-year{font-size:12px;color:var(--muted);font-family:var(--mono);}
+    .proj-desc{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:18px;}
+    .proj-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+    .tags{display:flex;gap:7px;flex-wrap:wrap;}
+    .tag{font-size:11px;font-weight:500;color:var(--blue);background:#eff6ff;border-radius:5px;padding:4px 12px;}
+    .demo-btn{
+      font-size:13px;font-weight:600;color:#fff;background:var(--blue);
+      border:none;border-radius:24px;padding:8px 22px;
+      cursor:pointer;font-family:var(--inter);text-decoration:none;
+      transition:background 0.2s;display:inline-block;
+    }
+    .demo-btn:hover{background:#1d4fd8;}
+
+    /* ── CONTACT ── */
+    .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .contact-card{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      padding:20px 22px;display:flex;align-items:center;gap:16px;
+      cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;
+      text-decoration:none;
+    }
+    .contact-card:hover{border-color:#bfdbfe;box-shadow:0 2px 18px rgba(37,99,235,0.09);}
+    .c-ico{
+      width:42px;height:42px;border-radius:12px;background:#eff6ff;
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;flex-shrink:0;color:var(--blue);font-weight:600;
+    }
+    .c-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+    .c-val{font-size:14px;font-weight:500;color:var(--text);margin-top:3px;}
+
+    /* ── FOOTER ── */
+    footer{
+      text-align:center;padding:28px;font-size:12px;color:var(--muted);
+      border-top:1px solid var(--border);font-family:var(--mono);letter-spacing:1px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:700px){
+      nav{padding:0 20px;}
+      .nav-links{gap:16px;}
+      .hero-name{font-size:40px;}
+      .section{padding:48px 20px;}
+      .about-grid{grid-template-columns:1fr;}
+      .contact-wrap{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">David Kithi</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="lp-base"></div>
+    <div class="lp-pole"></div>
+    <div class="lp-arm"></div>
+    <div class="lp-neck"></div>
+    <div class="lp-shade"></div>
+    <div class="lp-bulb"></div>
+    <div class="lp-beam"></div>
+    <div class="lp-glow"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-hi">Hi, I'm David 👋</div>
+      <div class="hero-name">David Kithi</div>
+      <div class="hero-sub">A passionate Full Stack Developer based in Nairobi, Kenya.</div>
+      <a class="hero-btn" href="#projects">View My Projects</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section">
+      <div class="sec-title">About Me</div>
+      <div class="sec-line"></div>
+      <div class="about-grid">
+        <div>
+          <p class="about-text">
+            I'm a <strong>21-year-old Full Stack Developer</strong> from <strong>Nairobi, Kenya</strong> with a deep interest in software development. I build clean, functional web experiences from front to back — driven by curiosity and a love for clean code.<br><br>
+            I have a strong grasp of the core programming areas including HTML, CSS, and JavaScript, and I'm always expanding my skill set.
+          </p>
+          <div class="about-badges">
+            <div class="badge"><div class="badge-dot"></div>HTML, CSS &amp; JavaScript fundamentals</div>
+            <div class="badge"><div class="badge-dot"></div>Full Stack Development</div>
+            <div class="badge"><div class="badge-dot"></div>Open to work &amp; collaborations</div>
+          </div>
+        </div>
+        <div class="about-cards">
+          <div class="about-card"><div class="big">21</div><div class="lbl">Years old</div></div>
+          <div class="about-card"><div class="big" style="font-size:34px;">Nairobi</div><div class="lbl">Kenya</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <div class="section" style="padding-top:0;">
+      <div class="sec-title">Skills</div>
+      <div class="sec-line"></div>
+      <div class="skills-wrap">
+        <div class="skill-chip">HTML5</div>
+        <div class="skill-chip">CSS3</div>
+        <div class="skill-chip">JavaScript</div>
+        <div class="skill-chip">React</div>
+        <div class="skill-chip">Node.js</div>
+        <div class="skill-chip">Express</div>
+        <div class="skill-chip">Git / GitHub</div>
+        <div class="skill-chip">REST APIs</div>
+        <div class="skill-chip">MongoDB</div>
+        <div class="skill-chip">Responsive UI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section" style="padding-top:0;">
+      <div class="sec-title">Projects</div>
+      <div class="sec-line"></div>
+      <div class="proj-grid">
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">ShopEase</div>
+            <div class="proj-year">2024</div>
+          </div>
+          <div class="proj-desc">A full-stack e-commerce web app with product listings, cart management, and user authentication. Built with a clean responsive UI.</div>
+          <div class="proj-footer">
+            <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span></div>
+            <a class="demo-btn" href="https://github.com/ray4240" target="_blank">Live Demo ↗</a>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">TaskFlow</div>
+            <div class="proj-year">2024</div>
+          </div>
+          <div class="proj-desc">A productivity task manager with drag-and-drop boards, priority labels, and deadline tracking. Fully responsive across devices.</div>
+          <div class="proj-footer">
+            <div class="tags"><span class="tag">JavaScript</span><span class="tag">CSS3</span><span class="tag">Express</span></div>
+            <a class="demo-btn" href="https://github.com/ray4240" target="_blank">Live Demo ↗</a>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">WeatherNow</div>
+            <div class="proj-year">2023</div>
+          </div>
+          <div class="proj-desc">Real-time weather app consuming a public API. Displays current conditions, 5-day forecast, and location-based search.</div>
+          <div class="proj-footer">
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+            <a class="demo-btn" href="https://github.com/ray4240" target="_blank">Live Demo ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section" style="padding-top:0;">
+      <div class="sec-title">Contact</div>
+      <div class="sec-line"></div>
+      <div class="contact-wrap">
+        <a class="contact-card" href="https://github.com/ray4240" target="_blank">
+          <div class="c-ico">GH</div>
+          <div><div class="c-lbl">GitHub</div><div class="c-val">ray4240</div></div>
+        </a>
+        <a class="contact-card" href="#" target="_blank">
+          <div class="c-ico">in</div>
+          <div><div class="c-lbl">LinkedIn</div><div class="c-val">Add your link</div></div>
+        </a>
+        <a class="contact-card" href="mailto:your@email.com">
+          <div class="c-ico">✉</div>
+          <div><div class="c-lbl">Email</div><div class="c-val">davidhamisi21@gmail.com</div></div>
+        </a>
+        <a class="contact-card" href="https://github.com/ray4240" target="_blank">
+          <div class="c-ico">◉</div>
+          <div><div class="c-lbl">All Projects</div><div class="c-val">View on GitHub ↗</div></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>built with passion &nbsp;·&nbsp; david kithi &nbsp;·&nbsp; nairobi, kenya &nbsp;·&nbsp; 2025</footer>
+
+</body>
+</html>
